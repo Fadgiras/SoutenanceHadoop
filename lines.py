@@ -8,26 +8,26 @@ with open("result.txt") as fichier:
         currentLigne = valeurs[3]
         montant = int(valeurs[-1])
         
-        # Ajouter le montant à la somme pour cette gare dans le dictionnaire
+        # Add the amount to the total for the current line
         if currentLigne in montants_par_ligne:
             montants_par_ligne[currentLigne] += montant
         else:
             montants_par_ligne[currentLigne] = montant
 
-# Trier les gares par ordre décroissant de montants
+# Sorting the lines by amount of passengers
 lignes = sorted(montants_par_ligne, key=montants_par_ligne.get, reverse=True)
 
-# Créer les listes de noms de gares et de montants correspondants pour le graphique
+# Create lists of names and amounts for the graph
 noms = []
 montants = []
 for current in lignes:
     noms.append(current)
     montants.append(montants_par_ligne[current])
 
-# Créer le graphique à barres horizontales
+# Create the bar chart
 fig, ax = plt.subplots()
 ax.barh(noms, montants)
-ax.invert_yaxis()  # Inverser l'ordre des gares pour que les plus grandes soient en haut
+ax.invert_yaxis()  # labels read top-to-bottom
 ax.set_xlabel("Voyageurs")
 ax.set_ylabel("Lignes")
 ax.set_title("Nombre de voyageurs par ligne")
